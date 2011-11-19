@@ -44,11 +44,60 @@ class AttributeCollection{
 
     }
     
-//
-//    public function __toString()
-//    {
-//        return $this->getName();
-//    }
+    public function __toString()
+    {
+        return $this->getName();
+    }
     
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Add attributes
+     *
+     * @param Base\TestBundle\Entity\Attribute $attributes
+     */
+    public function addAttribute(\Base\TestBundle\Entity\Attribute $attributes)
+    {
+        $this->attributes[] = $attributes;
+    }
+
+    /**
+     * Get attributes
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
 }

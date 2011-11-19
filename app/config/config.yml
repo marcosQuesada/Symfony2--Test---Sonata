@@ -6,6 +6,7 @@ imports:
     - { resource: sonata_media.yml }
     - { resource: sonata_formatter.yml }
     - { resource: sonata_news.yml }
+    - { resource: services.yml }
 
 framework:
     #esi:             ~
@@ -70,3 +71,6 @@ swiftmailer:
 jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
+
+  
+

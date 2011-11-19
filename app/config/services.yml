@@ -1,0 +1,18 @@
+services:
+  base.test.admin.producto:
+      class: Base\TestBundle\Admin\ProductoAdmin
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: gestor, label: producto }
+      arguments: [null, Base\TestBundle\Entity\Producto, BaseTestBundle:ProductoAdmin]
+      
+  base.test.admin.attribute:
+      class: Base\TestBundle\Admin\AttributeAdmin
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: gestor, label: attribute }
+      arguments: [null, Base\TestBundle\Entity\Attribute, BaseTestBundle:AttributeAdmin]      
+      
+  base.test.admin.attribute_collection:
+      class: Base\TestBundle\Admin\AttributeCollectionAdmin
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: gestor, label: attributecollection }
+      arguments: [null, Base\TestBundle\Entity\AttributeCollection, BaseTestBundle:AttributeCollectionAdmin]       

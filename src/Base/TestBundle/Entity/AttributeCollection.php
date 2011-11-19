@@ -44,11 +44,10 @@ class AttributeCollection{
 
     }
     
-//
-//    public function __toString()
-//    {
-//        return $this->getName();
-//    }
+    public function __toString()
+    {
+        return $this->getName();
+    }
     
 
 
@@ -101,4 +100,14 @@ class AttributeCollection{
     {
         return $this->attributes;
     }
+    
+    /**
+     * Set attributes
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function setAttributes($attributes)
+    {
+        $this->attributes = $attributes;
+    }    
 }
