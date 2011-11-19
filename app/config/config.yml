@@ -52,13 +52,13 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         default_entity_manager: default
-
-        entity_managers:
-            default:
-                #metadata_cache_driver: apc
-                #query_cache_driver: apc
-                #result_cache_driver: apc
-                mappings: ~
+        auto_mapping: true
+#        entity_managers:
+#            default:
+#                #metadata_cache_driver: apc
+#                #query_cache_driver: apc
+#                #result_cache_driver: apc
+#                mappings: ~
 
 # Swiftmailer Configuration
 swiftmailer:
