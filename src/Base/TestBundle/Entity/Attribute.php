@@ -1,5 +1,5 @@
 <?php
-namespace Testing\TestingBundle\Entity;
+namespace Base\TestBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
