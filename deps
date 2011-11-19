@@ -178,3 +178,11 @@
 [SonataCapistrano]
     git=https://github.com/sonata-project/sonata-capistrano.git
     target=/sonata-capistrano
+
+[Ladybug]
+    git=http://github.com/raulfraile/Ladybug.git
+    target=ladybug
+
+[RaulFraileLadybugBundle]
+    git=http://github.com/raulfraile/LadybugBundle.git
+    target=bundles/RaulFraile/Bundle/LadybugBundle

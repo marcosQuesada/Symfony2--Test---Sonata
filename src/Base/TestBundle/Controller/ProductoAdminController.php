@@ -8,10 +8,10 @@ class ProductoAdminController extends Base
 
 {
 
-//    public function testAction(){
-//        echo "OK";
-//        
-//        ladybug_dump($this);
+    public function testAction(){
+        echo "OK";
+        
+        ladybug_dump_die($this);
 //        die();
-//    }
+    }
 }

@@ -37,6 +37,8 @@ $loader->registerNamespaces(array(
     'Behat\BehatBundle' => __DIR__.'/../vendor/bundles',
     'Behat\Behat'       => __DIR__.'/../vendor/behat/behat/src',
     'Behat\Gherkin'     => __DIR__.'/../vendor/behat/gherkin/src',
+    'Ladybug'           => __DIR__.'/../vendor/ladybug/lib',
+    'RaulFraile'        => __DIR__.'/../vendor/bundles',    
 ));
 
 $loader->registerPrefixes(array(
