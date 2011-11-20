@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Knp\Menu\ItemInterface as MenuItemInterface;
+use Sonata\AdminBundle\Validator\ErrorElement;
 
 //use Application\Sonata\AdminBundle\Admin\Admin as Base;
 
@@ -193,5 +194,19 @@ class ProductoAdmin extends Admin
         );         
 
     }
+    
+    /**
+     * @param \Sonata\AdminBundle\Validator\ErrorElement $errorElement
+     * @param $object
+     * @return void
+     */
+    public function validate(ErrorElement $errorElement, $object)
+    {
+        $errorElement
+            ->with('name')
+                ->assertMaxLength(array('limit' => 32))
+            ->end()
+        ;
+    }    
 
 }
