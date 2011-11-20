@@ -41,18 +41,61 @@ class ProductoAdmin extends Admin
 
     public function configureFormFields(FormMapper $formMapper)
     {
-        
+        $values = array('attribute1','attribute2','attribute3','attribute4');
+                
         $formMapper
             ->with('General')
                 ->add('name')
                 ->add('slug','text',array('required' => false))
                 ->add('type')
+//                ->add('attribute1')    
+//                ->add('attribute2')    
+//                ->add('attribute3')    
+//                ->add('attribute4')    
+//                ->add('attribute5')                   
+            ->end();
+        
+        $em = $this->getModelManager()->getEntityManager();
+
+        $uri = $this->getRequest()->getUri();
+        $uriArray = explode('/',$uri);
+        $dato = array_pop($uriArray);
+        $accion = array_pop($uriArray);
+       // ladybug_dump_die($accion);
+        if ( $accion == 'createtype'){
+            $producto = $em->getRepository('BaseTestBundle:Producto')
+                            ->find($dato);
+
+            $tipo = $producto->getType()->getId();
+            $entity = $em->getRepository('BaseTestBundle:AttributeCollection')->find($tipo);
+            if (!is_null($entity)){            
+                $data = array();
+                foreach($entity->getAttributes() AS $key=>$field){
+                    $data[$field->getName()] = $field->getName();
+                }
+
+            }        
+            foreach($values As $value){
+                echo $value;
+                if (in_array($value, $data)){
+                    $formMapper
+                    ->with('General')
+                            ->add($value)
+                    ->end();
+                }
+            }            
+        }else{
+                
+        $formMapper
+            ->with('General')               
                 ->add('attribute1')    
                 ->add('attribute2')    
                 ->add('attribute3')    
                 ->add('attribute4')    
                 ->add('attribute5')                   
             ->end();
+        }
+
                    // ladybug_dump_die($this->getDatagrid()->getForm()->getChildren());
 //          $keys = array();
 //          $fields = $this->getDatagrid()->getForm()->getChildren();
@@ -65,20 +108,19 @@ class ProductoAdmin extends Admin
 //                $test->add($field,'text' ,array("property_path" => false,'required' => false));
 //            }          
 //         $test->end();
-        $id = 4;
-        $em = $this->getModelManager()->getEntityManager();
-        //$entities = $em->getRepository('BaseTestBundle:AttributeCollection')->findAll();
-        $entity = $em->getRepository('BaseTestBundle:AttributeCollection')->find($id);
-        if (!is_null($entity)){
-            $test = $formMapper->with('Added');
-            $data = array();
-            foreach($entity->getAttributes() AS $key=>$field){
-                $data[$field->getName()] = $field->getName();
-                $test->add($field->getName(),'text' ,array("property_path" => false,'required' => false));
-            }
-            $test->end();
-        //$formMapper->getFormBuilder()->setData($data);
-        }
+//        $id = 4;
+//        $em = $this->getModelManager()->getEntityManager();
+//        //$entities = $em->getRepository('BaseTestBundle:AttributeCollection')->findAll();
+//        $entity = $em->getRepository('BaseTestBundle:AttributeCollection')->find($id);
+//        if (!is_null($entity)){
+//            $test = $formMapper->with('Added');
+//            $data = array();
+//            foreach($entity->getAttributes() AS $key=>$field){
+//                $data[$field->getName()] = $field->getName();
+//                $test->add($field->getName(),'text' ,array("property_path" => false,'required' => false));
+//            }
+//            $test->end();        
+//        }
     }
 
     public function configureListFields(ListMapper $listMapper)
