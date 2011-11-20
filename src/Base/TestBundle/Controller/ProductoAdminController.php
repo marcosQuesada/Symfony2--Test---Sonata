@@ -13,7 +13,7 @@ class ProductoAdminController extends Base
         $em = $this->getDoctrine()->getEntityManager();
 
         $entities = $em->getRepository('BaseTestBundle:Producto');
-//        ladybug_dump_die($entities->findBySlug('testing'));
+        ladybug_dump_die($entities->find($id));
 //        return $this->render('BaseTestBundle:Default:index.html.twig', array('name' => $id));
 ////        ladybug_dump_die($this);
 ////        die();

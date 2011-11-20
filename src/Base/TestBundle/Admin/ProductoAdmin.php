@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Validator\ErrorElement;
+use Base\TestBundle\Entity\Producto;
 
 //use Application\Sonata\AdminBundle\Admin\Admin as Base;
 
@@ -50,6 +51,7 @@ class ProductoAdmin extends Admin
                 ->add('name')
                 ->add('slug','text',array('required' => false))
                 ->add('type')
+                ->add('status', 'choice', array('choices' => Producto::getStatusList()))
 //                ->add('attribute1')    
 //                ->add('attribute2')    
 //                ->add('attribute3')    
@@ -97,7 +99,10 @@ class ProductoAdmin extends Admin
                 ->add('attribute5')                   
             ->end();
         }
-
+//        $formMapper
+//           ->with('Options', array('collapsed' => false))
+//                
+//            ->end();
                    // ladybug_dump_die($this->getDatagrid()->getForm()->getChildren());
 //          $keys = array();
 //          $fields = $this->getDatagrid()->getForm()->getChildren();
@@ -136,7 +141,10 @@ class ProductoAdmin extends Admin
             ->add('attribute2')    
             ->add('attribute3')    
             ->add('attribute4')    
-            ->add('attribute5')                   
+            ->add('attribute5')       
+            ->add('createdAt')
+            ->add('updatedAt')
+            ->add('status')
             ->add('_action', 'actions', array(
                     'actions' => array(
                                 'view' => array(),

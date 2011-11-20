@@ -9,9 +9,13 @@ use Base\TestBundle\Entity\AttributeCollection;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Base\TestBundle\Repository\ProductoRepository")
  * @ORM\Table(name="producto")
+ * @ORM\HasLifecycleCallBacks()
  *
  */
 class Producto{
+    const STATUS_OUTOFSTOCK   = 2;
+    const STATUS_ENABLED   = 1;
+    const STATUS_DISABLED = 0;
     
    /**
      * @var integer $id
@@ -64,17 +68,60 @@ class Producto{
     /**
      * @ORM\Column(type="string", length=100, nullable= TRUE)
      */
-    protected $attribute5;    
+    protected $attribute5;   
+    
+    /**
+     * @ORM\Column(type="datetime")
+     */    
+    protected $createdAt;
+     
+    /**
+     * @ORM\Column(type="datetime")
+     */     
+    protected $updatedAt;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */     
+    protected $status = self::STATUS_ENABLED;
 
-//    public function __construct()
+    public function __construct()
+    {
+        $this->setCreatedAt(new \DateTime);
+        $this->setUpdatedAt(new \DateTime);
+        
+
+    }
+    
+    /**
+     * Invoked before the entity is updated.
+     *
+     * @ORM\PreUpdate
+     */
+    public function preUpdate()
+    {
+        $this->updatedAt = new \DateTime();
+    }
+//    
+//    /** 
+//     * @ORM\PostPersist 
+//     */ 
+//    public function doOnPostPersist() 
+//    { 
+//        $this->doExport(); 
+//    }     
+
+//    public function preInsert($object)
 //    {
-//       $name = $this->getName();
-//        //$name = strtolower(str_replace(' ', '_', $name));
-//        $this->setSlug($name);
-//
+//        $object->setCreatedAt(new \DateTime);
+//        $object->setUpdatedAt(new \DateTime);
+//    }
+//    
+//    public function preUpdate($object)
+//    {
+//        $object->setUpdatedAt(new \DateTime);
 //    }
     
-
     public function __toString()
     {
         return $this->getName();
@@ -267,5 +314,83 @@ class Producto{
         return $this->slug;
     }
     
+    public static function getStatusList()
+    {
+        return array(
+            self::STATUS_OUTOFSTOCK => 'Out of Stock',
+            self::STATUS_DISABLED => 'Disabled',
+            self::STATUS_ENABLED   => 'Enabled',
+        );
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param datetime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return datetime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param datetime $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return datetime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
     
+    
+//    public static function loadValidatorMetadata(ClassMetadata $metadata)
+//    {
+//        $metadata->addPropertyConstraint('user', new NotBlank(array(
+//            'message' => 'You must enter your name'
+//        )));
+//        $metadata->addPropertyConstraint('comment', new NotBlank(array(
+//            'message' => 'You must enter a comment'
+//        )));
+//    }
 }
