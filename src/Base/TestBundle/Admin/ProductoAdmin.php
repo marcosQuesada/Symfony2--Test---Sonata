@@ -18,9 +18,10 @@ class ProductoAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->add('duplicate');
-        $collection->add('view', $this->getRouterIdParameter().'/view');
+        $collection->add('createtype', 'createtype/'.$this->getRouterIdParameter());
         $collection->add('test', 'test');
-    }  
+          //ladybug_dump($this->getRouterIdParameter());
+    }
     
     public function configureShowField(ShowMapper $showMapper)
     {
@@ -28,6 +29,7 @@ class ProductoAdmin extends Admin
         $showMapper
             ->add('id')
             ->add('name')
+            ->add('slug')
             ->add('type')
             ->add('attribute1')    
             ->add('attribute2')    
@@ -39,10 +41,11 @@ class ProductoAdmin extends Admin
 
     public function configureFormFields(FormMapper $formMapper)
     {
+        
         $formMapper
             ->with('General')
-                ->add('id')
                 ->add('name')
+                ->add('slug','text',array('required' => false))
                 ->add('type')
                 ->add('attribute1')    
                 ->add('attribute2')    
@@ -50,6 +53,32 @@ class ProductoAdmin extends Admin
                 ->add('attribute4')    
                 ->add('attribute5')                   
             ->end();
+                   // ladybug_dump_die($this->getDatagrid()->getForm()->getChildren());
+//          $keys = array();
+//          $fields = $this->getDatagrid()->getForm()->getChildren();
+//          foreach ($fields AS $key=>$field){
+//              $keys[] = $key;
+//          }
+//              //ladybug_dump_die($keys);          
+//         $test = $formMapper->with('Added');
+//         foreach($keys AS $field){                
+//                $test->add($field,'text' ,array("property_path" => false,'required' => false));
+//            }          
+//         $test->end();
+        $id = 4;
+        $em = $this->getModelManager()->getEntityManager();
+        //$entities = $em->getRepository('BaseTestBundle:AttributeCollection')->findAll();
+        $entity = $em->getRepository('BaseTestBundle:AttributeCollection')->find($id);
+        if (!is_null($entity)){
+            $test = $formMapper->with('Added');
+            $data = array();
+            foreach($entity->getAttributes() AS $key=>$field){
+                $data[$field->getName()] = $field->getName();
+                $test->add($field->getName(),'text' ,array("property_path" => false,'required' => false));
+            }
+            $test->end();
+        //$formMapper->getFormBuilder()->setData($data);
+        }
     }
 
     public function configureListFields(ListMapper $listMapper)
@@ -57,6 +86,7 @@ class ProductoAdmin extends Admin
         $listMapper
             ->addIdentifier('id')
             ->add('name')
+            ->add('slug')
             ->add('type')
             ->add('attribute1')    
             ->add('attribute2')    

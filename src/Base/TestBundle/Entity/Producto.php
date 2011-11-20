@@ -28,6 +28,12 @@ class Producto{
      */
     protected $name;
     
+    /**
+     * @ORM\Column(type="string", length=100,unique=true, nullable= TRUE)
+     * 
+     */
+    protected $slug;
+    
     
      /**
      * @ORM\ManyToOne(targetEntity="AttributeCollection")
@@ -62,14 +68,17 @@ class Producto{
 
 //    public function __construct()
 //    {
-//        $this->attributes = new ArrayCollection();
+//       $name = $this->getName();
+//        //$name = strtolower(str_replace(' ', '_', $name));
+//        $this->setSlug($name);
 //
 //    }
     
-//
+
     public function __toString()
     {
         return $this->getName();
+        
     }
     
 
@@ -223,4 +232,40 @@ class Producto{
     {
         return $this->type;
     }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        //$slug = $this->getName();
+        $this->slug = $this->slugify($slug);
+       // $this->slug = $slug;
+    }
+    
+    public function slugify($text)
+    {
+
+        // replace all non letters or digits by -
+        $text = preg_replace('/\W+/', '-', $text);
+
+        // trim and lowercase
+        $text = strtolower(trim($text, '-'));
+
+        return $text;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+    
+    
 }

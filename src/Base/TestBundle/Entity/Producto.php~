@@ -28,6 +28,11 @@ class Producto{
      */
     protected $name;
     
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $slug;
+    
     
      /**
      * @ORM\ManyToOne(targetEntity="AttributeCollection")
@@ -69,7 +74,9 @@ class Producto{
 //
     public function __toString()
     {
+        
         return $this->getName();
+        
     }
     
 
