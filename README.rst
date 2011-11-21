@@ -1,3 +1,37 @@
+Deploy Instructions
+===================
+
+cp app/config/parameters.yml.sample app/config/parameters.yml
+configure parameters.yml with your databases specs.
+
+cp app/config/parameters.yml.sample app/config/validation_parameters.yml
+cp app/config/parameters.yml.sample app/config/production_parameters.yml
+
+php app/console doctrine:create:database
+php app/console doctrine:schema:create
+Now acces your database and import db/fos_user_user.sql to fos_user_user table. 
+
+Linking assets
+app/console assets:install --symlink web/ 
+
+Regenerate Routes
+app/console sonata:page:update-core-routes
+app/console sonata:page:create-snapshots
+
+And that's it!
+
+
+After that you are able to login , test your access to http://xxxxxxx.xx/admin/dashboard
+user  Admin, pass 123123
+
+ Take a look of Base/TestBundle to see an example of integrated entities on Admin Sonata. 
+ Specially: 
+    Admin Folder, where you going to customize form grids & show on Backend.
+
+ If you need some help, contact to me by email: marcos.quesadas@gmail.com
+
+
+
 Sonata Standard Edition
 =======================
 
